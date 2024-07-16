@@ -1,6 +1,7 @@
 // MACROS
 #define LOGGER                                      // Enables log print-outs
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,22 +26,32 @@ public class RadioController : MonoBehaviour
 
     [Header("Frequency params")]
     [Tooltip("Frequency distance from target, where sound changes to show near valid selection")]
-    public uint near_freq = 20;
+    public int near_freq = 20;
     [Tooltip("Frequency distance from target, that indicates a valid selection")]
-    public uint valid_freq = 5;
+    public int valid_freq = 5;
     [Tooltip("Frequency step per cursor movement")]
-    public uint freq_step = 1;
+    public int freq_step = 1;
     [Tooltip("First number target frequency")]
-    public uint first_freq = 55;
+    public int first_freq = 55;
     [Tooltip("Second number target frequency")]
-    public uint second_freq = 160;
+    public int second_freq = 160;
 
-    private uint selected_freq = 130;
+    [Header("SFXssss")]
+    [Tooltip("Gaussian SFX")]
+    public AudioSource gaussian_sfx;
+    [Tooltip("Near SFX")]
+    public AudioSource near_sfx;
+    [Tooltip("First sheet")]
+    public AudioSource first_sfx;
+    [Tooltip("Second sheet")]
+    public AudioSource second_sfx;
+
+    private int selected_freq = 130;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gaussian_sfx.Play();
     }
 
     // Update is called once per frame
@@ -56,6 +67,9 @@ public class RadioController : MonoBehaviour
             cursor.transform.position = new Vector3(new_pox_x, cursor.transform.position.y, cursor.transform.position.z);
 
             selected_freq += freq_step;
+
+            UpdateSFX();
+
 #if DEBUG
             Debug.Log("Freq: " + selected_freq);
 #endif
@@ -69,9 +83,66 @@ public class RadioController : MonoBehaviour
             cursor.transform.position = new Vector3(new_pox_x, cursor.transform.position.y, cursor.transform.position.z);
 
             selected_freq -= freq_step;
+
+            UpdateSFX();
+
 #if DEBUG
             Debug.Log("Freq: " + selected_freq);
 #endif
-        }    
+        }
+    }
+
+    /// <summary>
+    /// Update the SFX based on updated frequency
+    /// </summary>
+    private void UpdateSFX()
+    {
+        int first_dist = Math.Abs(selected_freq - first_freq);
+        int second_dist = Math.Abs(selected_freq - second_freq);
+
+        // Valid solutions
+        if (first_dist <= valid_freq)
+        {
+            //gaussian_sfx.Stop();
+            near_sfx.Stop();
+
+            if (!first_sfx.isPlaying)
+                first_sfx.Play();
+#if DEBUG
+            Debug.Log("Valid first");
+#endif
+        }
+        else if (second_dist <= valid_freq)
+        {
+            //gaussian_sfx.Stop();
+            near_sfx.Stop();
+
+            if (!second_sfx.isPlaying)
+                second_sfx.Play();
+#if DEBUG
+            Debug.Log("Valid second");
+#endif
+        }
+        // Near solution
+        else if (first_dist <= near_freq || second_dist <= near_freq)
+        {
+            gaussian_sfx.Stop();
+            first_sfx.Stop();
+            second_sfx.Stop();
+
+            if (!near_sfx.isPlaying)
+                near_sfx.Play();
+#if DEBUG
+            Debug.Log("Near solution");
+#endif
+        }
+        // Far
+        else
+        {
+            near_sfx.Stop();
+
+            if (!gaussian_sfx.isPlaying)
+                gaussian_sfx.Play();
+        }
     }
 }
