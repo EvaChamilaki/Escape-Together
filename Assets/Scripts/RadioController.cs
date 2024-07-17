@@ -132,6 +132,8 @@ public class RadioController : MonoBehaviour
 
             if (!first_sfx.isPlaying)
                 first_sfx.Play();
+
+            first_sfx.volume = 0.8f;
 #if DEBUG
             Debug.Log("Valid first");
 #endif
@@ -143,19 +145,62 @@ public class RadioController : MonoBehaviour
 
             if (!second_sfx.isPlaying)
                 second_sfx.Play();
+
+            second_sfx.volume = 0.8f;
 #if DEBUG
             Debug.Log("Valid second");
 #endif
         }
+//        // Near solution
+//        else if (first_dist <= near_freq || second_dist <= near_freq)
+//        {
+//            gaussian_sfx.Stop();
+//            first_sfx.Stop();
+//            second_sfx.Stop();
+
+//            if (!near_sfx.isPlaying)
+//                near_sfx.Play();
+
+//            // Adjust volume
+//#if DEBUG
+//            Debug.Log("Near solution");
+//#endif
+//        }
         // Near solution
-        else if (first_dist <= near_freq || second_dist <= near_freq)
+        else if (first_dist <= near_freq)
         {
             gaussian_sfx.Stop();
-            first_sfx.Stop();
-            second_sfx.Stop();
+            //first_sfx.Stop();
+            //second_sfx.Stop();
 
             if (!near_sfx.isPlaying)
                 near_sfx.Play();
+
+            // Adjust volume
+            if (!first_sfx.isPlaying)
+                first_sfx.Play();
+
+            first_sfx.volume = 0.8f - 4 * (float)(first_dist / 100.0f);
+
+#if DEBUG
+            Debug.Log("Near solution");
+#endif
+        }
+        // Near solution
+        else if (second_dist <= near_freq)
+        {
+            gaussian_sfx.Stop();
+            //first_sfx.Stop();
+            //second_sfx.Stop();
+
+            if (!near_sfx.isPlaying)
+                near_sfx.Play();
+
+            // Adjust volume
+            if (!second_sfx.isPlaying)
+                second_sfx.Play();
+
+            second_sfx.volume = 0.8f - 4 * (float)(second_dist / 100.0f);
 #if DEBUG
             Debug.Log("Near solution");
 #endif
