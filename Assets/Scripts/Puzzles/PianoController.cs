@@ -100,7 +100,8 @@ public class PianoController : MonoBehaviour
                 focused = false;
                 main_camera.enabled = false;
                 radio_camera.enabled = true;
-                getTarget.GetComponent<RadioController>().focused = true;
+
+                getTarget.GetComponent<RadioController>().SwitchToRadio();
 
                 return;
             }

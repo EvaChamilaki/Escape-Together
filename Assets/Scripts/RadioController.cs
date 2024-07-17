@@ -25,6 +25,8 @@ public class RadioController : MonoBehaviour
     public GameObject cursor;
     [Tooltip("PianoController")]
     public GameObject piano_controller;
+    [Tooltip("Subtitles")]
+    public GameObject subtitle_go;
 
     [Header("Frequency params")]
     [Tooltip("Frequency distance from target, where sound changes to show near valid selection")]
@@ -51,16 +53,21 @@ public class RadioController : MonoBehaviour
     [Header("Stuff")]
     [Tooltip("Radio Camera")]
     public Camera radio_camera;
-    [Tooltip("Whether the radio camera is active")]
-    public bool focused = false;
 
-    private int selected_freq = 130;
+    private bool focused = false;
+
+    private int selected_freq;
+    private int init_freq = 130;
 
     private Camera main_camera;
+
+    private float init_cursor_x;
 
     // Start is called before the first frame update
     void Start()
     {
+        selected_freq = init_freq;
+        init_cursor_x = cursor.transform.position.x;
         focused = false;
         gaussian_sfx.Play();
         main_camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
@@ -131,7 +138,12 @@ public class RadioController : MonoBehaviour
             near_sfx.Stop();
 
             if (!first_sfx.isPlaying)
+            {
                 first_sfx.Play();
+
+                // Enable subtitles
+                subtitle_go.GetComponent<SubtitleController>().StartSubtitles(0);
+            }
 
             first_sfx.volume = 0.8f;
 #if DEBUG
@@ -144,28 +156,15 @@ public class RadioController : MonoBehaviour
             near_sfx.Stop();
 
             if (!second_sfx.isPlaying)
+            {
                 second_sfx.Play();
+            }
 
             second_sfx.volume = 0.8f;
 #if DEBUG
             Debug.Log("Valid second");
 #endif
         }
-//        // Near solution
-//        else if (first_dist <= near_freq || second_dist <= near_freq)
-//        {
-//            gaussian_sfx.Stop();
-//            first_sfx.Stop();
-//            second_sfx.Stop();
-
-//            if (!near_sfx.isPlaying)
-//                near_sfx.Play();
-
-//            // Adjust volume
-//#if DEBUG
-//            Debug.Log("Near solution");
-//#endif
-//        }
         // Near solution
         else if (first_dist <= near_freq)
         {
@@ -178,7 +177,12 @@ public class RadioController : MonoBehaviour
 
             // Adjust volume
             if (!first_sfx.isPlaying)
+            {
                 first_sfx.Play();
+
+                // Enable subtitles
+                subtitle_go.GetComponent<SubtitleController>().StartSubtitles(0);
+            }
 
             first_sfx.volume = 0.8f - 4 * (float)(first_dist / 100.0f);
 
@@ -198,7 +202,12 @@ public class RadioController : MonoBehaviour
 
             // Adjust volume
             if (!second_sfx.isPlaying)
+            {
                 second_sfx.Play();
+
+                // Enable subtitles
+                subtitle_go.GetComponent<SubtitleController>().StartSubtitles(1);
+            }
 
             second_sfx.volume = 0.8f - 4 * (float)(second_dist / 100.0f);
 #if DEBUG
@@ -208,17 +217,39 @@ public class RadioController : MonoBehaviour
         // Far
         else
         {
-            near_sfx.Stop();
-
             if (!gaussian_sfx.isPlaying)
+            {
+                near_sfx.Stop();
+                first_sfx.Stop();
+                second_sfx.Stop();
                 gaussian_sfx.Play();
+
+                // Disable subtitles
+                subtitle_go.GetComponent<SubtitleController>().StopSubtitles();
+            }
         }
+    }
+
+    public void SwitchToRadio()
+    {
+        focused = true;
     }
 
     private void SwitchToMainCamera()
     {
         focused = false;
         piano_controller.GetComponent<PianoController>().focused = true;
+
+        // Disable subtitles
+        subtitle_go.GetComponent<SubtitleController>().StopSubtitles();
+
+        gaussian_sfx.Stop();
+        near_sfx.Stop();
+        first_sfx.Stop();
+        second_sfx.Stop();
+
+        selected_freq = init_freq;
+        cursor.transform.position = new Vector3(init_cursor_x, cursor.transform.position.y, cursor.transform.position.z);
 
         radio_camera.enabled = false;
         main_camera.enabled = true;
