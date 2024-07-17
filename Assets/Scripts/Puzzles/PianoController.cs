@@ -26,6 +26,9 @@ public class PianoController : MonoBehaviour
 
     public bool banana;
 
+    [Tooltip("Whether the main camera is active")]
+    public bool focused = true;
+
     GameObject getTarget = null;
 
     private short note_index = 0;                   // denotes the note that needs to be played in the sequence. 15 is the last note.
@@ -39,9 +42,18 @@ public class PianoController : MonoBehaviour
     // Metrics
     private MasterLog master_log;
 
+    private Camera main_camera;
+    private Camera radio_camera;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Get cameras
+        main_camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        radio_camera = GameObject.FindWithTag("RadioCamera").GetComponent<Camera>();
+
+        focused = true;
+
         // Update cursor
         Cursor.SetCursor(point_cursor, hotSpot, cursorMode);
 
@@ -50,7 +62,6 @@ public class PianoController : MonoBehaviour
         master_log.SetupTime();
 
         switch_scene_button.SetActive(false);
-
     }
 
     // Update is called once per frame
@@ -62,7 +73,7 @@ public class PianoController : MonoBehaviour
             return;
         }
 
-        if (!banana)
+        if (!banana || !focused)
             return;
 
         RaycastHit hitInfo;
@@ -82,6 +93,18 @@ public class PianoController : MonoBehaviour
         //check if the left mouse button has been clicked
         if (Input.GetMouseButtonDown(0))
         {
+            // For radio
+            if (getTarget != null && getTarget.CompareTag("Radio"))
+            {
+                // Switch to radio camera
+                focused = false;
+                main_camera.enabled = false;
+                radio_camera.enabled = true;
+                getTarget.GetComponent<RadioController>().focused = true;
+
+                return;
+            }
+
             // Only care about keys
             if (getTarget != null && getTarget.CompareTag("PianoKeys"))
             {
@@ -155,7 +178,8 @@ public class PianoController : MonoBehaviour
     {
         GameObject target = null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit) && hit.transform.CompareTag("PianoKeys"))
+        //if (Physics.Raycast(ray.origin, ray.direction * 10, out hit) && hit.transform.CompareTag("PianoKeys"))
+        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit) && (hit.transform.CompareTag("PianoKeys") || hit.transform.CompareTag("Radio")))
         {
             target = hit.collider.gameObject;
         }

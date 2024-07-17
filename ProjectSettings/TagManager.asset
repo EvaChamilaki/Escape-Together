@@ -8,6 +8,8 @@ TagManager:
   - Ghosts
   - HintBooks
   - PianoKeys
+  - RadioCamera
+  - Radio
   layers:
   - Default
   - TransparentFX

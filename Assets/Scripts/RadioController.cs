@@ -23,6 +23,8 @@ public class RadioController : MonoBehaviour
     public GameObject rot_wheel;
     [Tooltip("Cursor")]
     public GameObject cursor;
+    [Tooltip("PianoController")]
+    public GameObject piano_controller;
 
     [Header("Frequency params")]
     [Tooltip("Frequency distance from target, where sound changes to show near valid selection")]
@@ -46,17 +48,38 @@ public class RadioController : MonoBehaviour
     [Tooltip("Second sheet")]
     public AudioSource second_sfx;
 
+    [Header("Stuff")]
+    [Tooltip("Radio Camera")]
+    public Camera radio_camera;
+    [Tooltip("Whether the radio camera is active")]
+    public bool focused = false;
+
     private int selected_freq = 130;
+
+    private Camera main_camera;
 
     // Start is called before the first frame update
     void Start()
     {
+        focused = false;
         gaussian_sfx.Play();
+        main_camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Ignore if not in focus
+        if (!focused)
+            return;
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            SwitchToMainCamera();
+
+            return;
+        }
+
         // Clockwise
         if (Input.GetKeyUp(KeyCode.D))
         {
@@ -74,6 +97,7 @@ public class RadioController : MonoBehaviour
             Debug.Log("Freq: " + selected_freq);
 #endif
         }
+        // Counter-clockwise
         else if (Input.GetKeyUp(KeyCode.A))
         {
             rot_wheel.transform.Rotate(new Vector3(0, 0, 1), -rot_speed);
@@ -144,5 +168,14 @@ public class RadioController : MonoBehaviour
             if (!gaussian_sfx.isPlaying)
                 gaussian_sfx.Play();
         }
+    }
+
+    private void SwitchToMainCamera()
+    {
+        focused = false;
+        piano_controller.GetComponent<PianoController>().focused = true;
+
+        radio_camera.enabled = false;
+        main_camera.enabled = true;
     }
 }
