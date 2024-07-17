@@ -83,7 +83,7 @@ public class RadioController : MonoBehaviour
         // Clockwise
         if (Input.GetKeyUp(KeyCode.D))
         {
-            rot_wheel.transform.Rotate(new Vector3(0, 0, 1), rot_speed);
+            //rot_wheel.transform.Rotate(new Vector3(0, 0, 1), rot_speed);
 
             float new_pox_x = cursor.transform.position.x - cursor_interval;
             new_pox_x = Mathf.Clamp(new_pox_x, right_bound_x, left_bound_x);
@@ -100,7 +100,7 @@ public class RadioController : MonoBehaviour
         // Counter-clockwise
         else if (Input.GetKeyUp(KeyCode.A))
         {
-            rot_wheel.transform.Rotate(new Vector3(0, 0, 1), -rot_speed);
+            //rot_wheel.transform.Rotate(new Vector3(0, 0, 1), -rot_speed);
 
             float new_pox_x = cursor.transform.position.x + cursor_interval;
             new_pox_x = Mathf.Clamp(new_pox_x, right_bound_x, left_bound_x);

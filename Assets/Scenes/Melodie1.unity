@@ -4638,7 +4638,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 34a9f23a1ec893649805ae6befdd5708, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.8
   m_Pitch: 1
@@ -12282,7 +12282,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fd0e6e6f8b2a37b49b934187398d4585, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.8
   m_Pitch: 1
@@ -15829,7 +15829,7 @@ GameObject:
   - component: {fileID: 919132148007189137}
   - component: {fileID: 2073102277}
   m_Layer: 0
-  m_Name: radio_blender
+  m_Name: radio
   m_TagString: Radio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
