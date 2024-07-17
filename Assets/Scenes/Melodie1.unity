@@ -2901,6 +2901,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50.37, y: 180, z: 0}
+--- !u!1 &470795814 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 593399984431405623, guid: 734cda1dd3193694ca7b1536325a32a1, type: 3}
+  m_PrefabInstance: {fileID: 137259208}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &501328157
 GameObject:
   m_ObjectHideFlags: 0
@@ -10324,6 +10329,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solution_sequence: 0b000600070006000b0006000700040009000600070006000900060007000400
+  piano_object:
+  - {fileID: 470795814}
+  - {fileID: 1103879273}
   point_cursor: {fileID: 2800000, guid: a5f9cc9a5efbe894eb85de4851711ba8, type: 3}
   press_cursor: {fileID: 2800000, guid: 0f45821c9378469498c0044ff9068ea2, type: 3}
   solved_sfx: {fileID: 261125308}
@@ -11085,6 +11093,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50.37, y: 180, z: 0}
+--- !u!1 &1103879273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1109898859822650616, guid: 734cda1dd3193694ca7b1536325a32a1, type: 3}
+  m_PrefabInstance: {fileID: 137259208}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1152863119
 GameObject:
   m_ObjectHideFlags: 0

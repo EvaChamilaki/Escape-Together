@@ -10464,6 +10464,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solution_sequence: 0c000b000c00040005000c000b0002000c000e0010000b000c000e0009000b00
+  piano_object:
+  - {fileID: 1338626568}
+  - {fileID: 1338626567}
   point_cursor: {fileID: 2800000, guid: a5f9cc9a5efbe894eb85de4851711ba8, type: 3}
   press_cursor: {fileID: 2800000, guid: 0f45821c9378469498c0044ff9068ea2, type: 3}
   solved_sfx: {fileID: 261125308}
@@ -12015,6 +12018,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1338626567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1109898859822650616, guid: 734cda1dd3193694ca7b1536325a32a1, type: 3}
+  m_PrefabInstance: {fileID: 137259208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1338626568 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 593399984431405623, guid: 734cda1dd3193694ca7b1536325a32a1, type: 3}
+  m_PrefabInstance: {fileID: 137259208}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1374166927
 GameObject:
   m_ObjectHideFlags: 0
