@@ -69,7 +69,7 @@ public class RadioController : MonoBehaviour
         selected_freq = init_freq;
         init_cursor_x = cursor.transform.position.x;
         focused = false;
-        gaussian_sfx.Play();
+        //gaussian_sfx.Play();
         main_camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
@@ -233,6 +233,7 @@ public class RadioController : MonoBehaviour
     public void SwitchToRadio()
     {
         focused = true;
+        gaussian_sfx.Play();
     }
 
     private void SwitchToMainCamera()

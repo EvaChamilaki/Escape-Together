@@ -2218,7 +2218,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '''Esc'' or ''P'': Pause'
+  m_text: '''Esc'' or ''P'': Pause
+
+    ''Spacebar'': Exit Radio
+
+    ''Click on
+    Radio'': Switch to Radio Camera
+
+    ''A'' or ''D'': Manipulate Radio when in
+    focus'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9fdae73e600a0cd4e9ab818efbe63b4e, type: 2}
   m_sharedMaterial: {fileID: 5529189689746664246, guid: 9fdae73e600a0cd4e9ab818efbe63b4e, type: 2}
