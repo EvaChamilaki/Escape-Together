@@ -44,6 +44,9 @@ public class PianoController : MonoBehaviour
 
     private Camera main_camera;
     private Camera radio_camera;
+    private Camera piano_camera;
+
+    private BoxCollider pianoCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +54,9 @@ public class PianoController : MonoBehaviour
         // Get cameras
         main_camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         radio_camera = GameObject.FindWithTag("RadioCamera").GetComponent<Camera>();
+        piano_camera = GameObject.FindWithTag("PianoCamera").GetComponent<Camera>();
+
+        pianoCollider = GameObject.FindWithTag("Piano").GetComponent<BoxCollider>();
 
         focused = true;
 
@@ -73,8 +79,14 @@ public class PianoController : MonoBehaviour
             return;
         }
 
+        if (piano_camera.enabled && Input.GetKeyUp(KeyCode.Space))
+        {
+            SwitchToMainCamera();
+        }
+
         if (!banana || !focused)
             return;
+
 
         RaycastHit hitInfo;
 
@@ -94,18 +106,35 @@ public class PianoController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // For radio
-            if (getTarget != null && getTarget.CompareTag("Radio"))
+            if (main_camera.enabled && getTarget != null && getTarget.CompareTag("Radio"))
             {
                 // Switch to radio camera
                 focused = false;
                 main_camera.enabled = false;
                 radio_camera.enabled = true;
 
+
                 getTarget.GetComponent<RadioController>().SwitchToRadio();
 
                 return;
             }
 
+            // For piano
+            else if (main_camera.enabled && getTarget != null && getTarget.CompareTag("Piano"))
+            {
+                // Switch to piano camera
+                focused = true;
+                main_camera.enabled = false;
+                piano_camera.enabled = true;
+
+                pianoCollider.enabled = false;
+
+                return;
+            }
+
+            else if (main_camera.enabled)
+                return;
+        
             // Only care about keys
             if (getTarget != null && getTarget.CompareTag("PianoKeys"))
             {
@@ -178,9 +207,10 @@ public class PianoController : MonoBehaviour
     GameObject ReturnClickedObject(out RaycastHit hit)
     {
         GameObject target = null;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = main_camera.enabled ? main_camera.ScreenPointToRay(Input.mousePosition) : piano_camera.ScreenPointToRay(Input.mousePosition);
+        
         //if (Physics.Raycast(ray.origin, ray.direction * 10, out hit) && hit.transform.CompareTag("PianoKeys"))
-        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit) && (hit.transform.CompareTag("PianoKeys") || hit.transform.CompareTag("Radio")))
+        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit) && (hit.transform.CompareTag("PianoKeys") || hit.transform.CompareTag("Radio") || hit.transform.CompareTag("Piano")))
         {
             target = hit.collider.gameObject;
         }
@@ -188,6 +218,13 @@ public class PianoController : MonoBehaviour
     }
 
 
+    void SwitchToMainCamera()
+    {
+        pianoCollider.enabled = true;
+        focused = false;
+        piano_camera.enabled = false;
+        main_camera.enabled = true;
+    }
 
     public void SwitchScene()
     {
