@@ -13,7 +13,9 @@ public class InteractionController : MonoBehaviour
     {
         if (other.CompareTag("CloseTrigger") && other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetBool("Opened"))
         {
-            other.gameObject.transform.parent.GetComponentInChildren<Animator>().Play("DoorClose");
+            if (other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).length > other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
+                return;
+            other.gameObject.transform.parent.GetComponentInChildren<Animator>().SetTrigger("DoorClose");
             other.gameObject.transform.parent.GetComponentInChildren<Animator>().SetBool("Opened", false);
         }
     }
@@ -29,7 +31,8 @@ public class InteractionController : MonoBehaviour
     void Update()
     {
         if (!active)
-            return; 
+            return;
+       
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray.origin, ray.direction, out hit, 4.0f) && hit.transform.CompareTag("Door"))
@@ -50,14 +53,15 @@ public class InteractionController : MonoBehaviour
 
             if (hit.collider.gameObject.GetComponentInParent<Animator>().GetBool("Opened"))
             {
-                hit.collider.gameObject.GetComponentInParent<Animator>().Play("DoorClose");
+                hit.collider.gameObject.GetComponentInParent<Animator>().SetTrigger("DoorClose");
                 hit.collider.gameObject.GetComponentInParent<Animator>().SetBool("Opened", false);
             }
             else
             {
-                hit.collider.gameObject.GetComponentInParent<Animator>().Play("DoorOpen");
+                hit.collider.gameObject.GetComponentInParent<Animator>().SetTrigger("DoorOpen");
                 hit.collider.gameObject.GetComponentInParent<Animator>().SetBool("Opened", true);
             }
+
         }
     }
 }
