@@ -13,8 +13,8 @@ public class InteractionController : MonoBehaviour
     {
         if (other.CompareTag("CloseTrigger") && other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetBool("Opened"))
         {
-            if (other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).length > other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
-                return;
+            //if (other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).length > other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
+            //    return;
             other.gameObject.transform.parent.GetComponentInChildren<Animator>().SetTrigger("DoorClose");
             other.gameObject.transform.parent.GetComponentInChildren<Animator>().SetBool("Opened", false);
         }
@@ -48,8 +48,8 @@ public class InteractionController : MonoBehaviour
 
         if(hitDoor && Input.GetMouseButtonDown(0))
         {
-            if (hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).length > hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
-                return;
+            //if (hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).length > hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
+            //    return;
 
             if (hit.collider.gameObject.GetComponentInParent<Animator>().GetBool("Opened"))
             {
