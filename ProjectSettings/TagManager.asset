@@ -8,6 +8,7 @@ TagManager:
   - Ghosts
   - HintBooks
   - PianoKeys
+  - Door
   layers:
   - Default
   - TransparentFX
