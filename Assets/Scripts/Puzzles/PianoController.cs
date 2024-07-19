@@ -58,6 +58,7 @@ public class PianoController : MonoBehaviour
 
         pianoCollider = GameObject.FindWithTag("Piano").GetComponent<BoxCollider>();
 
+        banana = false;
         focused = false;
 
         // Update cursor
@@ -84,6 +85,8 @@ public class PianoController : MonoBehaviour
             SwitchToMainCamera();
         }
 
+        if (!banana)
+            return;
         RaycastHit hitInfo;
 
         getTarget = ReturnClickedObject(out hitInfo);
@@ -218,7 +221,6 @@ public class PianoController : MonoBehaviour
     {
         pianoCollider.enabled = true;
         focused = false;
-        banana = false;
         piano_camera.enabled = false;
         main_camera.enabled = true;
     }
