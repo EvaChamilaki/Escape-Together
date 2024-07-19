@@ -9,6 +9,7 @@ TagManager:
   - HintBooks
   - PianoKeys
   - Door
+  - CloseTrigger
   layers:
   - Default
   - TransparentFX

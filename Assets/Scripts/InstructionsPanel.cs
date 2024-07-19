@@ -21,18 +21,7 @@ public class InstructionsPanel : MonoBehaviour
         player.GetComponent<FirstPersonMovement>().stop_flag = false;
         instructions.SetActive(true);
         introduction.SetActive(false);
-//         if (cameraGO != null)
-//         {
-//             cameraGO.GetComponent<FirstPersonLook>().enabled = true;
-//         }
-
-//         if (tempDisableObj != null)
-//         { 
-//             tempDisableObj.SetActive(true);
-//         }
-
-//         if (Cursor.lockState == CursorLockMode.None && SceneManager.GetActiveScene().name == "PlayerControllerTestScene") 
-
+        player.GetComponent<InteractionController>().active = true;
         cameraGO.GetComponent<FirstPersonLook>().enabled = true;
 
         if (Cursor.lockState == CursorLockMode.None)
