@@ -58,7 +58,7 @@ public class PianoController : MonoBehaviour
 
         pianoCollider = GameObject.FindWithTag("Piano").GetComponent<BoxCollider>();
 
-        focused = true;
+        focused = false;
 
         // Update cursor
         Cursor.SetCursor(point_cursor, hotSpot, cursorMode);
@@ -84,14 +84,10 @@ public class PianoController : MonoBehaviour
             SwitchToMainCamera();
         }
 
-        if (!banana || !focused)
-            return;
-
-
         RaycastHit hitInfo;
 
         getTarget = ReturnClickedObject(out hitInfo);
-        if (getTarget != null && getTarget.CompareTag("PianoKeys"))
+        if (getTarget != null && (getTarget.CompareTag("PianoKeys") || getTarget.CompareTag("Radio") || getTarget.CompareTag("Piano") ))
         {
             // Update cursor
             Cursor.SetCursor(press_cursor, hotSpot, cursorMode);
@@ -136,7 +132,7 @@ public class PianoController : MonoBehaviour
                 return;
         
             // Only care about keys
-            if (getTarget != null && getTarget.CompareTag("PianoKeys"))
+            if (piano_camera.enabled && getTarget != null && getTarget.CompareTag("PianoKeys"))
             {
                 // Play SFX
                 getTarget.GetComponent<AudioSource>().Play();
@@ -222,6 +218,7 @@ public class PianoController : MonoBehaviour
     {
         pianoCollider.enabled = true;
         focused = false;
+        banana = false;
         piano_camera.enabled = false;
         main_camera.enabled = true;
     }
