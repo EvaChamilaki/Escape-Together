@@ -45,6 +45,9 @@ public class InteractionController : MonoBehaviour
 
         if(hitDoor && Input.GetMouseButtonDown(0))
         {
+            if (hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).length > hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
+                return;
+
             if (hit.collider.gameObject.GetComponentInParent<Animator>().GetBool("Opened"))
             {
                 hit.collider.gameObject.GetComponentInParent<Animator>().Play("DoorClose");
