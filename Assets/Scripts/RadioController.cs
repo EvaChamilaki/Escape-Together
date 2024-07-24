@@ -183,11 +183,17 @@ public class RadioController : MonoBehaviour
             {
                 first_sfx.Play();
 
-                // Enable subtitles
+                // Start subtitles
                 subtitle_go.GetComponent<SubtitleController>().StartSubtitles(0);
             }
 
             first_sfx.volume = 0.8f - 4 * (float)(first_dist / 100.0f);
+
+            // Enable subtitles on desired volume
+            if (!subtitle_go.GetComponent<SubtitleController>().ArePlaying() && first_sfx.volume >= 0.15f)
+                subtitle_go.GetComponent<SubtitleController>().ShowSubtitles();
+            else if (subtitle_go.GetComponent<SubtitleController>().ArePlaying() && first_sfx.volume < 0.15f)
+                subtitle_go.GetComponent<SubtitleController>().HideSubtitles();
 
 #if DEBUG
             Debug.Log("Near solution");
@@ -208,11 +214,17 @@ public class RadioController : MonoBehaviour
             {
                 second_sfx.Play();
 
-                // Enable subtitles
+                // Start subtitles
                 subtitle_go.GetComponent<SubtitleController>().StartSubtitles(1);
             }
 
             second_sfx.volume = 0.8f - 4 * (float)(second_dist / 100.0f);
+
+            // Enable subtitles on desired volume
+            if (!subtitle_go.GetComponent<SubtitleController>().ArePlaying() && second_sfx.volume >= 0.15f)
+                subtitle_go.GetComponent<SubtitleController>().ShowSubtitles();
+            else if (subtitle_go.GetComponent<SubtitleController>().ArePlaying() && second_sfx.volume < 0.15f)
+                subtitle_go.GetComponent<SubtitleController>().HideSubtitles();
 #if DEBUG
             Debug.Log("Near solution");
 #endif

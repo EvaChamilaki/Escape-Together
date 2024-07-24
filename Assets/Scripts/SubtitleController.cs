@@ -17,12 +17,15 @@ public class SubtitleController : MonoBehaviour
     private bool timer_on = false;
     private float timer_start;
 
+    private bool playing;
+
     private int sheet_number = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         focused = false;
+        playing = false;
     }
 
     // Update is called once per frame
@@ -54,7 +57,8 @@ public class SubtitleController : MonoBehaviour
         GetComponent<TMP_Text>().text = captions[0 + sheet_number * 2];
         timer_on = true;
         timer_start = Time.time;
-        GetComponent<TMP_Text>().enabled = true;
+        //GetComponent<TMP_Text>().enabled = true;
+        //playing = true;
     }
 
     public void StopSubtitles()
@@ -62,5 +66,15 @@ public class SubtitleController : MonoBehaviour
         focused = false;
         GetComponent<TMP_Text>().enabled = false;
         sub_index = 0;
+        playing = false;
     }
+
+    public void ShowSubtitles()
+    { playing = true; GetComponent<TMP_Text>().enabled = true; }
+
+    public void HideSubtitles()
+    { playing = false; GetComponent<TMP_Text>().enabled = false; }
+
+    public bool ArePlaying()
+    { return playing; }
 }
