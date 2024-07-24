@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +18,9 @@ public class PianoController : MonoBehaviour
 
     [Header("SFXsssss")]
     public AudioSource solved_sfx;
+
+    [Header("Instruction texts")]
+    public TMP_Text instruction_text;
 
     [Tooltip("Button for next scene")]
     public GameObject switch_scene_button;
@@ -39,6 +43,11 @@ public class PianoController : MonoBehaviour
     private CursorMode cursorMode = CursorMode.Auto;
     private Vector2 hotSpot = Vector2.zero;
 
+    // Hardcoded (thanks Unity...) instruction texts
+    private string main_view_text = "'Esc' or 'P': Pause\nClick on object to interact";
+    private string piano_view_text = "'Esc' or 'P': Pause\nClick on piano key to play\n'Spacebar': Exit Piano view";
+    private string radio_view_text = "'Esc' or 'P': Pause\n'A' or 'D': Manipulate Radio\n'Spacebar': Exit Radio view";
+
     // Metrics
     private MasterLog master_log;
 
@@ -60,6 +69,9 @@ public class PianoController : MonoBehaviour
 
         banana = false;
         focused = false;
+
+        // Set initial instruction text
+        instruction_text.text = main_view_text;
 
         // Update cursor
         Cursor.SetCursor(point_cursor, hotSpot, cursorMode);
@@ -115,6 +127,8 @@ public class PianoController : MonoBehaviour
 
                 getTarget.GetComponent<RadioController>().SwitchToRadio();
 
+                instruction_text.text = radio_view_text;
+
                 return;
             }
 
@@ -127,6 +141,8 @@ public class PianoController : MonoBehaviour
                 piano_camera.enabled = true;
 
                 pianoCollider.enabled = false;
+
+                instruction_text.text = piano_view_text;
 
                 return;
             }
@@ -223,6 +239,8 @@ public class PianoController : MonoBehaviour
         focused = false;
         piano_camera.enabled = false;
         main_camera.enabled = true;
+
+        instruction_text.text = main_view_text;
     }
 
     public void SwitchScene()

@@ -11750,6 +11750,7 @@ MonoBehaviour:
   point_cursor: {fileID: 2800000, guid: a5f9cc9a5efbe894eb85de4851711ba8, type: 3}
   press_cursor: {fileID: 2800000, guid: 0f45821c9378469498c0044ff9068ea2, type: 3}
   solved_sfx: {fileID: 261125308}
+  instruction_text: {fileID: 196599593}
   switch_scene_button: {fileID: 1959805172}
   next_scene: Outro
   sheet_list:
@@ -16332,6 +16333,7 @@ MonoBehaviour:
   first_sfx: {fileID: 719198977}
   second_sfx: {fileID: 1312068692}
   radio_camera: {fileID: 1784438443}
+  instruction_text: {fileID: 196599593}
 --- !u!82 &2076435447
 AudioSource:
   m_ObjectHideFlags: 0

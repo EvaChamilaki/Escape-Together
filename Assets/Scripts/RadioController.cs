@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RadioController : MonoBehaviour
@@ -53,6 +54,8 @@ public class RadioController : MonoBehaviour
     [Header("Stuff")]
     [Tooltip("Radio Camera")]
     public Camera radio_camera;
+    [Tooltip("Instruction text")]
+    public TMP_Text instruction_text;
 
     private bool focused = false;
 
@@ -254,5 +257,7 @@ public class RadioController : MonoBehaviour
 
         radio_camera.enabled = false;
         main_camera.enabled = true;
+
+        instruction_text.text = "'Esc' or 'P': Pause\nClick on object to interact";
     }
 }
