@@ -11,6 +11,7 @@ public class PianoController : MonoBehaviour
     [Header("Solution setup")]
     [Tooltip("Solution sequence")]
     public List<short> solution_sequence = new List<short>(16);
+    public GameObject[] piano_object;
 
     [Header("Custom cursors")]
     public Texture2D point_cursor;
@@ -177,9 +178,9 @@ public class PianoController : MonoBehaviour
                     {
                         // Puzzle solved, do amazing things
                         puzzle_solved = true;
-                        solved_sfx.Play();
-                        switch_scene_button.SetActive(true);
 
+                        StartCoroutine(PlaySequenceCoroutine());
+                        
 #if (LOGGER)
                         Debug.Log("Puzzle solved!");
 #endif
@@ -212,6 +213,33 @@ public class PianoController : MonoBehaviour
 #endif
             }
         }
+    }
+
+    private IEnumerator PlaySequenceCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        Animator anim;
+
+        for (int i = 0; i < solution_sequence.Count; i++)
+        {
+            int targetID = solution_sequence[i];
+            for (int j = 0; j < piano_object.Length; j++)
+            {
+                foreach (Transform child in piano_object[j].transform)
+                {
+                    if (child.gameObject.CompareTag("PianoKeys") && child.GetComponent<PianoKey>().id == targetID)
+                    {
+                        child.GetComponent<AudioSource>().Play();
+                        anim = child.GetComponent<Animator>();
+                        anim.SetTrigger("PlayAnim");
+
+                        yield return new WaitForSeconds(0.7f);
+                    }
+                }
+            }
+        }
+        solved_sfx.Play();
+        switch_scene_button.SetActive(true);
     }
 
     /// <summary>
