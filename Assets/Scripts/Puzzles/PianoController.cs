@@ -29,6 +29,9 @@ public class PianoController : MonoBehaviour
 
     public List<GameObject> sheet_list = new List<GameObject>();
 
+    [Tooltip("Delay between notes in sequence playback")]
+    public float playback_delay = 0.7f;
+
     public bool banana;
 
     [Tooltip("Whether the main camera is active")]
@@ -233,7 +236,7 @@ public class PianoController : MonoBehaviour
                         anim = child.GetComponent<Animator>();
                         anim.SetTrigger("PlayAnim");
 
-                        yield return new WaitForSeconds(0.7f);
+                        yield return new WaitForSeconds(playback_delay);
                     }
                 }
             }

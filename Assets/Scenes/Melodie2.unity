@@ -11711,6 +11711,7 @@ MonoBehaviour:
   - {fileID: 1948395481}
   - {fileID: 1295904233}
   - {fileID: 60911839}
+  playback_delay: 0.4
   banana: 0
   focused: 1
 --- !u!114 &950963605
