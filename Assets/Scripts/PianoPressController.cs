@@ -7,12 +7,9 @@ public class PianoPressController : MonoBehaviour
     public Animator animator;
     private bool isPlaying = false;
 
-    private Camera piano_camera;
-
     void Start() 
     {
         animator = gameObject.GetComponent<Animator>();
-        piano_camera = GameObject.FindWithTag("PianoCamera").GetComponent<Camera>();
     }
 
     void OnMouseDown()
@@ -26,7 +23,7 @@ public class PianoPressController : MonoBehaviour
     IEnumerator PlayAnimation()
     {
         isPlaying = true;
-        Ray ray = piano_camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
