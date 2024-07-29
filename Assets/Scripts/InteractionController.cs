@@ -6,11 +6,18 @@ public class InteractionController : MonoBehaviour
 {
     public GameObject canvasClick;
 
+    [Header("Respawn Locations")]
+    public Transform room_a;
+    public Transform room_b;
+    public Transform room_c;
+    public Transform room_d;
+
     public bool active;
     private bool hitDoor;
 
     void OnTriggerEnter(Collider other)
     {
+        // Door closing
         if (other.CompareTag("CloseTrigger") && other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetBool("Opened"))
         {
             //if (other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).length > other.gameObject.transform.parent.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
@@ -18,6 +25,37 @@ public class InteractionController : MonoBehaviour
             other.gameObject.transform.parent.GetComponentInChildren<Animator>().SetTrigger("DoorClose");
             other.gameObject.transform.parent.GetComponentInChildren<Animator>().SetBool("Opened", false);
             other.gameObject.transform.parent.GetComponentsInChildren<AudioSource>()[1].PlayDelayed(0.4f);
+        }
+        // Player respawing
+        else if (other.CompareTag("RespawnTrigger"))
+        {
+            gameObject.GetComponent<AudioSource>().Play();
+
+            switch (other.gameObject.transform.GetComponent<RespawnTrigger>().room_id)
+            {
+                case 0:
+                {
+                    gameObject.transform.position = room_a.position;
+                    break;
+                }
+                case 1:
+                {
+                    gameObject.transform.position = room_b.position;
+                    break;
+                }
+                case 2:
+                {
+                    gameObject.transform.position = room_c.position;
+                    break;
+                }
+                case 3:
+                {
+                    gameObject.transform.position = room_d.position;
+                    break;
+                }
+                default:
+                    break;
+            }
         }
     }
 

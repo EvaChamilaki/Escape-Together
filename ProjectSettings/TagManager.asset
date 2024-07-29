@@ -10,6 +10,7 @@ TagManager:
   - PianoKeys
   - Door
   - CloseTrigger
+  - RespawnTrigger
   layers:
   - Default
   - TransparentFX
