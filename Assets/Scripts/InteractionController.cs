@@ -17,6 +17,7 @@ public class InteractionController : MonoBehaviour
             //    return;
             other.gameObject.transform.parent.GetComponentInChildren<Animator>().SetTrigger("DoorClose");
             other.gameObject.transform.parent.GetComponentInChildren<Animator>().SetBool("Opened", false);
+            other.gameObject.transform.parent.GetComponentsInChildren<AudioSource>()[1].PlayDelayed(0.4f);
         }
     }
 
@@ -46,7 +47,7 @@ public class InteractionController : MonoBehaviour
             canvasClick.SetActive(false);
         }
 
-        if(hitDoor && Input.GetMouseButtonDown(0))
+        if (hitDoor && Input.GetMouseButtonDown(0))
         {
             //if (hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).length > hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
             //    return;
@@ -55,11 +56,13 @@ public class InteractionController : MonoBehaviour
             {
                 hit.collider.gameObject.GetComponentInParent<Animator>().SetTrigger("DoorClose");
                 hit.collider.gameObject.GetComponentInParent<Animator>().SetBool("Opened", false);
+                hit.collider.gameObject.GetComponents<AudioSource>()[1].PlayDelayed(0.4f);
             }
             else
             {
                 hit.collider.gameObject.GetComponentInParent<Animator>().SetTrigger("DoorOpen");
                 hit.collider.gameObject.GetComponentInParent<Animator>().SetBool("Opened", true);
+                hit.collider.gameObject.GetComponents<AudioSource>()[0].Play();
             }
 
         }
