@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,6 +40,9 @@ public class DragDrop : MonoBehaviour
     public ParticleSystem ps_left;
     [Tooltip("Suprise right VFX")]
     public ParticleSystem ps_right;
+
+    [Header("Instruction texts")]
+    public TMP_Text instruction_text;
 
     public GameObject GlowyBookOutline;
 
@@ -78,6 +82,10 @@ public class DragDrop : MonoBehaviour
 
     private List<GameObject> solutionBooks;             //store the books that are part of the solution
     private List<Vector3> targetPositionLists;          //store the "pushed back" positions of the books
+
+    // Hardcoded (thanks Unity...) instruction texts
+    private string main_view_text = "Hover cursor over book and Hold 'Left-Click' to Drag";
+    private string drag_view_text = "Release 'Left-Click' to Drop book";
 
     // Cursor properties
     private Texture2D cursorTexture;
@@ -129,6 +137,8 @@ public class DragDrop : MonoBehaviour
 
         GhostsShowing(false);
 
+        instruction_text.text = main_view_text;                     // Start with main instructions
+
         // Calculate puzzle status on solution
         puzzle_solved_status = (short)(Mathf.Pow(2, ghosts.Length) - 1);
     }
@@ -164,6 +174,8 @@ public class DragDrop : MonoBehaviour
             {
                 mouseDragging = true;
                 GhostsShowing(true);
+
+                instruction_text.text = drag_view_text;             // Set instructions to dragging
             }
 
             // Only care about interactable books
@@ -213,6 +225,8 @@ public class DragDrop : MonoBehaviour
             mouseDragging = false;
             GhostsShowing(false);
             SnapToPosition();
+
+            instruction_text.text = main_view_text;             // Set instructions to main
         }
 
         //while the left mouse button remains clicked, do....
