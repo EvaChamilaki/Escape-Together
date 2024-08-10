@@ -3468,6 +3468,10 @@ PrefabInstance:
       propertyPath: emptyGO
       value: 
       objectReference: {fileID: 465888518}
+    - target: {fileID: 4221870848538050882, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4330015423014023778, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -157.73
@@ -9611,7 +9615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -358, y: -473}
+  m_AnchoredPosition: {x: -62, y: -473}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1185498406
@@ -9634,9 +9638,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '''R'': Reset your position
-
-    ''Esc'' or ''P'': Pause'
+  m_text: "'Left-Click' on Door to Open\n 'Esc' or 'P': Pause"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9fdae73e600a0cd4e9ab818efbe63b4e, type: 2}
   m_sharedMaterial: {fileID: 5529189689746664246, guid: 9fdae73e600a0cd4e9ab818efbe63b4e, type: 2}
@@ -9670,7 +9672,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
