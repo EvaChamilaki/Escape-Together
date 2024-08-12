@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractionController : MonoBehaviour
 {
@@ -12,8 +13,21 @@ public class InteractionController : MonoBehaviour
     public Transform room_c;
     public Transform room_d;
 
+    [Header("Respawn Fader Animation")]
+    public GameObject respawn_image;
+    public float alpha_interval = 0.01f;
+
     public bool active;
     private bool hitDoor;
+
+    // Animation stuff
+    private float timer, timer_start;
+    private bool fade_in = true;
+    private bool respawn_animation_playing = false;
+    private Vector3 respawn_tgt;
+
+    private GameObject player_object;
+    private GameObject camera_object;
 
     void OnTriggerEnter(Collider other)
     {
@@ -35,22 +49,34 @@ public class InteractionController : MonoBehaviour
             {
                 case 0:
                 {
-                    gameObject.transform.position = room_a.position;
+                    //gameObject.transform.position = room_a.position;
+                    respawn_tgt = room_a.position;
+                    respawn_animation_playing = true;
+                    respawn_image.SetActive(true);
                     break;
                 }
                 case 1:
                 {
-                    gameObject.transform.position = room_b.position;
+                    //gameObject.transform.position = room_b.position;
+                    respawn_tgt = room_b.position;
+                    respawn_animation_playing = true;
+                    respawn_image.SetActive(true);
                     break;
                 }
                 case 2:
                 {
-                    gameObject.transform.position = room_c.position;
+                    //gameObject.transform.position = room_c.position;
+                    respawn_tgt = room_c.position;
+                    respawn_animation_playing = true;
+                    respawn_image.SetActive(true);
                     break;
                 }
                 case 3:
                 {
-                    gameObject.transform.position = room_d.position;
+                    //gameObject.transform.position = room_d.position;
+                    respawn_tgt = room_d.position;
+                    respawn_animation_playing = true;
+                    respawn_image.SetActive(true);
                     break;
                 }
                 default:
@@ -64,6 +90,12 @@ public class InteractionController : MonoBehaviour
     {
         canvasClick.SetActive(false);
         active = false;
+
+        player_object = GameObject.FindWithTag("Player");
+        camera_object = GameObject.FindWithTag("MainCamera");
+
+        if (player_object == null || camera_object == null)
+            Debug.LogError("PLAYER OR CAMERA NOT FOUND");
     }
 
     // Update is called once per frame
@@ -71,6 +103,42 @@ public class InteractionController : MonoBehaviour
     {
         if (!active)
             return;
+
+        // Respawn animation logic
+        if (respawn_animation_playing)
+        {
+            float new_alpha = (fade_in) ? Mathf.Clamp01(respawn_image.GetComponent<Image>().color.a + alpha_interval) :
+                Mathf.Clamp01(respawn_image.GetComponent<Image>().color.a - alpha_interval);
+
+            respawn_image.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, new_alpha);
+
+            // Teleport
+            if (fade_in && new_alpha == 1.0f)
+            {
+                // Freeze player
+                player_object.GetComponent<FirstPersonMovement>().stop_flag = true;
+                camera_object.GetComponent<FirstPersonLook>().stop_flag= true;
+
+                gameObject.transform.position = respawn_tgt;
+                fade_in = false;
+
+                return;
+            }
+
+            if (!fade_in && new_alpha == 0.0f)
+            {
+                // Unfreeze player
+                player_object.GetComponent<FirstPersonMovement>().stop_flag = false;
+                camera_object.GetComponent<FirstPersonLook>().stop_flag = false;
+
+                fade_in = true;
+                respawn_image.SetActive(false);
+
+                respawn_animation_playing = false;
+            }
+
+            return;
+        }
        
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
