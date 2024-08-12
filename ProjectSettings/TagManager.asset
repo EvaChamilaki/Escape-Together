@@ -11,6 +11,8 @@ TagManager:
   - Door
   - CloseTrigger
   - RespawnTrigger
+  - MazeLight
+  - DirectionalLight
   layers:
   - Default
   - TransparentFX
