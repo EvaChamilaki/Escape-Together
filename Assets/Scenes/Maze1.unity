@@ -4606,6 +4606,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1993180999410712133, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2934995345671975386, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_Name
       value: First person controller full 2
