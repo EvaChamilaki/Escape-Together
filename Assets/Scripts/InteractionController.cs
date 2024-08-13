@@ -21,9 +21,9 @@ public class InteractionController : MonoBehaviour
     private bool hitDoor;
 
     // Animation stuff
-    private float timer, timer_start;
     private bool fade_in = true;
     private bool respawn_animation_playing = false;
+    private bool exit_animation_playing = false;
     private Vector3 respawn_tgt;
 
     private GameObject player_object;
@@ -139,6 +139,12 @@ public class InteractionController : MonoBehaviour
 
             return;
         }
+
+        //// Exit Animation logic
+        //if (exit_animation_playing)
+        //{
+
+        //}
        
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

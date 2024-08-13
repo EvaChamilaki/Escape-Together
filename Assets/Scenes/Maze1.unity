@@ -7585,7 +7585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &685478372
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9441,7 +9441,7 @@ GameObject:
   - component: {fileID: 859651901}
   - component: {fileID: 859651900}
   m_Layer: 0
-  m_Name: Trigger
+  m_Name: ExitTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9509,7 +9509,7 @@ Transform:
   m_GameObject: {fileID: 859651899}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.85, y: 1.98, z: -33.53}
+  m_LocalPosition: {x: -30.9, y: 1.98, z: -41.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18363,7 +18363,8 @@ PrefabInstance:
       value: uploads_files_1916881_Female+Bust
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -2845779275431937956, guid: 66a7d8ae38be3964a9ed8069b040f55a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66a7d8ae38be3964a9ed8069b040f55a, type: 3}
