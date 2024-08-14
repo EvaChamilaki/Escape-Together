@@ -13693,7 +13693,7 @@ MonoBehaviour:
   room_c: {fileID: 781632665}
   room_d: {fileID: 548149812}
   respawn_image: {fileID: 366362501}
-  alpha_interval: 0.0075
+  alpha_interval: 2
   active: 0
 --- !u!82 &1315359238
 AudioSource:

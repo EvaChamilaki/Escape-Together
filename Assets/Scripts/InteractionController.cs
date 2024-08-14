@@ -43,7 +43,11 @@ public class InteractionController : MonoBehaviour
         // Player respawing
         else if (other.CompareTag("RespawnTrigger"))
         {
-            gameObject.GetComponent<AudioSource>().Play();
+            //gameObject.GetComponent<AudioSource>().Play();
+
+            // Freeze player
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;
 
             switch (other.gameObject.transform.GetComponent<RespawnTrigger>().room_id)
             {
@@ -96,6 +100,8 @@ public class InteractionController : MonoBehaviour
 
         if (player_object == null || camera_object == null)
             Debug.LogError("PLAYER OR CAMERA NOT FOUND");
+
+        respawn_image.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
     }
 
     // Update is called once per frame
@@ -107,18 +113,19 @@ public class InteractionController : MonoBehaviour
         // Respawn animation logic
         if (respawn_animation_playing)
         {
-            float new_alpha = (fade_in) ? Mathf.Clamp01(respawn_image.GetComponent<Image>().color.a + alpha_interval) :
-                Mathf.Clamp01(respawn_image.GetComponent<Image>().color.a - alpha_interval);
+            float new_alpha = (fade_in) ? Mathf.Clamp01(respawn_image.GetComponent<Image>().color.a + alpha_interval * Time.deltaTime) :
+                Mathf.Clamp01(respawn_image.GetComponent<Image>().color.a - alpha_interval * Time.deltaTime);
 
             respawn_image.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, new_alpha);
 
             // Teleport
             if (fade_in && new_alpha == 1.0f)
             {
-                // Freeze player
-                player_object.GetComponent<FirstPersonMovement>().stop_flag = true;
-                camera_object.GetComponent<FirstPersonLook>().stop_flag= true;
+                //// Freeze player
+                //player_object.GetComponent<FirstPersonMovement>().stop_flag = true;
+                //camera_object.GetComponent<FirstPersonLook>().stop_flag= true;
 
+                gameObject.GetComponent<AudioSource>().Play();
                 gameObject.transform.position = respawn_tgt;
                 fade_in = false;
 
