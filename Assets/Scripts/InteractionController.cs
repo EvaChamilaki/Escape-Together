@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InteractionController : MonoBehaviour
 {
+    [Header("UI Elements")]
     public GameObject canvasClick;
+    public GameObject canvasClickToExit;
 
     [Header("Respawn Locations")]
     public Transform room_a;
@@ -17,8 +20,15 @@ public class InteractionController : MonoBehaviour
     public GameObject respawn_image;
     public float alpha_interval = 0.01f;
 
+    [Header("SFXsssss")]
+    public AudioSource exit_sfx;
+
+    [Header("Scene Change")]
+    public string next_scene = "";
+
     public bool active;
-    private bool hitDoor;
+    private bool hitDoor = false;
+    private bool hit_exit = false;
 
     // Animation stuff
     private bool fade_in = true;
@@ -28,6 +38,8 @@ public class InteractionController : MonoBehaviour
 
     private GameObject player_object;
     private GameObject camera_object;
+
+    private MasterLog master_log; // Add a MasterLog instance
 
     void OnTriggerEnter(Collider other)
     {
@@ -92,7 +104,11 @@ public class InteractionController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        master_log = new MasterLog(); // Initialize MasterLog
+        master_log.SetupTime(); // Set the start time
+
         canvasClick.SetActive(false);
+        canvasClickToExit.SetActive(false);
         active = false;
 
         player_object = GameObject.FindWithTag("Player");
@@ -147,25 +163,50 @@ public class InteractionController : MonoBehaviour
             return;
         }
 
-        //// Exit Animation logic
-        //if (exit_animation_playing)
-        //{
+        // Exit Animation logic
+        if (exit_animation_playing)
+        {
+            float new_alpha = Mathf.Clamp01(respawn_image.GetComponent<Image>().color.a + alpha_interval * 0.2f * Time.deltaTime);
 
-        //}
-       
+            respawn_image.GetComponent<Image>().color = new Color(0.0f, 0.0f, 0.0f, new_alpha);     // Set to black now
+
+            // Switch scene
+            if (new_alpha == 1.0f)
+            {
+                // Log the metrics
+                master_log.WriteLog(SceneManager.GetActiveScene().name);
+                SceneManager.LoadScene(next_scene);
+
+                return;
+            }
+
+            return;
+        }
+
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction, out hit, 4.0f) && hit.transform.CompareTag("Door"))
+        //if (Physics.Raycast(ray.origin, ray.direction, out hit, 4.0f) && hit.transform.CompareTag("Door"))
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, 4.0f))
         {
-            hitDoor = true;
-            canvasClick.SetActive(true);
+            if (hit.transform.CompareTag("Door"))
+            {
+                hitDoor = true;
+                canvasClick.SetActive(true);
+            }
+            else if (hit.transform.CompareTag("ExitDoor"))
+            {
+                hit_exit = true;
+                canvasClickToExit.SetActive(true);
+            }
         }
         else
         {
             hitDoor = false;
             canvasClick.SetActive(false);
+            canvasClickToExit.SetActive(false);
         }
 
+        // Hit openable door
         if (hitDoor && Input.GetMouseButtonDown(0))
         {
             //if (hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).length > hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
@@ -184,6 +225,20 @@ public class InteractionController : MonoBehaviour
                 hit.collider.gameObject.GetComponents<AudioSource>()[0].Play();
             }
 
+        }
+        // Hit exit
+        else if (hit_exit && Input.GetMouseButtonDown(0))
+        {
+            exit_animation_playing = true;
+
+            canvasClickToExit.SetActive(false);
+            respawn_image.SetActive(true);
+
+            exit_sfx.Play();
+
+            // Freeze player
+            player_object.GetComponent<FirstPersonMovement>().stop_flag = true;
+            camera_object.GetComponent<FirstPersonLook>().stop_flag = true;
         }
     }
 }
