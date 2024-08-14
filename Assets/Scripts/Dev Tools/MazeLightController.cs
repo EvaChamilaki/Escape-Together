@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -47,3 +48,4 @@ namespace Assets.Scripts.Dev_Tools
         }
     }
 }
+#endif

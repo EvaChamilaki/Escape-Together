@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,3 +54,4 @@ public class MazePlayerPositionController : ScriptableObject
         EditorUtility.DisplayDialog("Player Position Tool", "Player Set at Room D!", "OK", "");   // Display Result
     }
 }
+#endif
