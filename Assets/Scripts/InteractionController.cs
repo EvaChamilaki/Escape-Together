@@ -9,6 +9,7 @@ public class InteractionController : MonoBehaviour
     [Header("UI Elements")]
     public GameObject canvasClick;
     public GameObject canvasClickToExit;
+    public GameObject canvasClickToPlay;
 
     [Header("Respawn Locations")]
     public Transform room_a;
@@ -29,6 +30,7 @@ public class InteractionController : MonoBehaviour
     public bool active;
     private bool hitDoor = false;
     private bool hit_exit = false;
+    private bool hit_piano = false;
 
     // Animation stuff
     private bool fade_in = true;
@@ -38,6 +40,7 @@ public class InteractionController : MonoBehaviour
 
     private GameObject player_object;
     private GameObject camera_object;
+    private GameObject piano_object;
 
     private MasterLog master_log; // Add a MasterLog instance
 
@@ -109,6 +112,7 @@ public class InteractionController : MonoBehaviour
 
         canvasClick.SetActive(false);
         canvasClickToExit.SetActive(false);
+        canvasClickToPlay.SetActive(false);
         active = false;
 
         player_object = GameObject.FindWithTag("Player");
@@ -116,6 +120,10 @@ public class InteractionController : MonoBehaviour
 
         if (player_object == null || camera_object == null)
             Debug.LogError("PLAYER OR CAMERA NOT FOUND");
+
+        piano_object = GameObject.FindWithTag("PianoKeys");
+        if (piano_object == null)
+            Debug.LogError("PIANO OBJECT NOT FOUND");
 
         respawn_image.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
     }
@@ -185,7 +193,6 @@ public class InteractionController : MonoBehaviour
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //if (Physics.Raycast(ray.origin, ray.direction, out hit, 4.0f) && hit.transform.CompareTag("Door"))
         if (Physics.Raycast(ray.origin, ray.direction, out hit, 4.0f))
         {
             if (hit.transform.CompareTag("Door"))
@@ -198,12 +205,23 @@ public class InteractionController : MonoBehaviour
                 hit_exit = true;
                 canvasClickToExit.SetActive(true);
             }
+            else if (hit.transform.CompareTag("PianoKeys"))
+            {
+                hit_piano = true;
+                if (piano_object.GetComponent<DecoPianoPlayer>().IsPlaying())
+                    canvasClickToPlay.SetActive(false);
+                else
+                    canvasClickToPlay.SetActive(true);
+            }
         }
         else
         {
             hitDoor = false;
+            hit_exit = false;
+            hit_piano = false;
             canvasClick.SetActive(false);
             canvasClickToExit.SetActive(false);
+            canvasClickToPlay.SetActive(false);
         }
 
         // Hit openable door
@@ -211,6 +229,10 @@ public class InteractionController : MonoBehaviour
         {
             //if (hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).length > hit.collider.gameObject.GetComponentInParent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime)
             //    return;
+
+            // Prevents null exceptions
+            if (hit.collider.gameObject.GetComponentInParent<Animator>() == null)
+                return;
 
             if (hit.collider.gameObject.GetComponentInParent<Animator>().GetBool("Opened"))
             {
@@ -240,5 +262,8 @@ public class InteractionController : MonoBehaviour
             player_object.GetComponent<FirstPersonMovement>().stop_flag = true;
             camera_object.GetComponent<FirstPersonLook>().stop_flag = true;
         }
+        // Hit piano (easter egg)
+        else if (hit_piano && Input.GetMouseButtonDown(0))
+            piano_object.GetComponent<DecoPianoPlayer>().PlayPiano();
     }
 }
