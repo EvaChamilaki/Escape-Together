@@ -6457,7 +6457,7 @@ Transform:
   m_GameObject: {fileID: 564443147}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.33, y: -15.78, z: 32.99}
+  m_LocalPosition: {x: 29.33, y: -15.78, z: 32.78}
   m_LocalScale: {x: 17.653072, y: 7.5012517, z: 0.39712793}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15189,7 +15189,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasClick: {fileID: 272802300}
   canvasClickToExit: {fileID: 1600984784}
-  canvasClickToPlay: {fileID: 619894190}
   room_a: {fileID: 1280294702}
   room_b: {fileID: 1257361077}
   room_c: {fileID: 781632665}
@@ -23840,7 +23839,7 @@ Transform:
   m_GameObject: {fileID: 1923218637}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20.7, y: -15.78, z: 21.27}
+  m_LocalPosition: {x: 20.7, y: -15.78, z: 21.235}
   m_LocalScale: {x: 23.484447, y: 7.5012517, z: 0.39712793}
   m_ConstrainProportionsScale: 0
   m_Children: []
