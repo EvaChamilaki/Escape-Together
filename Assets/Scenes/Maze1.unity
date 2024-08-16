@@ -15189,6 +15189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasClick: {fileID: 272802300}
   canvasClickToExit: {fileID: 1600984784}
+  canvasClickToPlay: {fileID: 619894190}
   room_a: {fileID: 1280294702}
   room_b: {fileID: 1257361077}
   room_c: {fileID: 781632665}
