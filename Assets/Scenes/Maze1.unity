@@ -4849,7 +4849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330015423014023778, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -157.73
+      value: -42.76
       objectReference: {fileID: 0}
     - target: {fileID: 4330015423014023778, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4857,7 +4857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330015423014023778, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.43
+      value: -33.39
       objectReference: {fileID: 0}
     - target: {fileID: 4330015423014023778, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15189,6 +15189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasClick: {fileID: 272802300}
   canvasClickToExit: {fileID: 1600984784}
+  canvasClickToPlay: {fileID: 619894190}
   room_a: {fileID: 1280294702}
   room_b: {fileID: 1257361077}
   room_c: {fileID: 781632665}
