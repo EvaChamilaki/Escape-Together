@@ -208,7 +208,7 @@ public class InteractionController : MonoBehaviour
             else if (hit.transform.CompareTag("PianoKeys"))
             {
                 hit_piano = true;
-                if (piano_object.GetComponent<DecoPianoPlayer>().IsPlaying())
+                if (piano_object.GetComponent<DecoPianoPlayer>() != null && piano_object.GetComponent<DecoPianoPlayer>().IsPlaying())
                     canvasClickToPlay.SetActive(false);
                 else
                     canvasClickToPlay.SetActive(true);
