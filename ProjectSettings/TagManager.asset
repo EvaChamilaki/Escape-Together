@@ -8,6 +8,12 @@ TagManager:
   - Ghosts
   - HintBooks
   - PianoKeys
+  - Door
+  - CloseTrigger
+  - RespawnTrigger
+  - MazeLight
+  - DirectionalLight
+  - ExitDoor
   - RadioCamera
   - Radio
   - PianoCamera
