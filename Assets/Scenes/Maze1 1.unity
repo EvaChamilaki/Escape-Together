@@ -15442,7 +15442,7 @@ MonoBehaviour:
   respawn_image: {fileID: 366362501}
   alpha_interval: 2
   exit_sfx: {fileID: 685478372}
-  next_scene: Melodie1
+  next_scene: Melodie2
   active: 0
 --- !u!82 &1315359238
 AudioSource:
