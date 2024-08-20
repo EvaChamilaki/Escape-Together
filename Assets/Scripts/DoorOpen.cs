@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class DoorOpen : MonoBehaviour
 {
-    public GameObject canvasClick;
+    /*public GameObject canvasClick;
     public GameObject panel;
-    public Animator animator;
+    public Animator animator;*/
     public string next_scene = "";
     public float delay = 1.5f;
     private bool insideCollider = false;
@@ -22,14 +22,14 @@ public class DoorOpen : MonoBehaviour
 
     void Start()
     {
-        animator = panel.GetComponent<Animator>();
+        /*animator = panel.GetComponent<Animator>();*/
         master_log = new MasterLog(); // Initialize MasterLog
         master_log.SetupTime(); // Set the start time
     }
 
     void OnTriggerEnter(Collider other)
     {
-        canvasClick.SetActive(true);
+        /*canvasClick.SetActive(true);*/
         insideCollider = true;
         timer_start = Time.time;
         door_opened = true;
@@ -37,17 +37,24 @@ public class DoorOpen : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        canvasClick.SetActive(false);
+        /*canvasClick.SetActive(false);*/
         insideCollider = false;
     }
 
     void Update()
     {
-        if (insideCollider && Input.GetMouseButtonDown(0))
+        /* if (insideCollider && Input.GetMouseButtonDown(0))
+         {
+             onTriggerEnter.Invoke();
+             animator.SetTrigger("DoorOpen");
+         }*/
+
+        if (insideCollider)
         {
             onTriggerEnter.Invoke();
-            animator.SetTrigger("DoorOpen");
+           
         }
+        
 
         if (door_opened && Time.time - timer_start > delay)
         {
