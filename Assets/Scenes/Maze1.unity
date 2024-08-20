@@ -4849,7 +4849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330015423014023778, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.76
+      value: -157.73
       objectReference: {fileID: 0}
     - target: {fileID: 4330015423014023778, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4857,7 +4857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330015423014023778, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -33.39
+      value: -7.43
       objectReference: {fileID: 0}
     - target: {fileID: 4330015423014023778, guid: c98a6992dc7bde246b9d92cb82417cbb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6263,7 +6263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6794084257901643089, guid: cb36a2c5696584b499154fd47319d137, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.255
+      value: -0.242
       objectReference: {fileID: 0}
     - target: {fileID: 6794084257901643089, guid: cb36a2c5696584b499154fd47319d137, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10421,9 +10421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ffd67b8019198419777c9b80b7a448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasClick: {fileID: 272802300}
-  panel: {fileID: 2127872244}
-  animator: {fileID: 2127872248}
   next_scene: Melodie1
   delay: 3
   onTriggerEnter:
@@ -22627,7 +22624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed3fe99398e011743a8762dc1e8e0975, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.449
+      value: 2.444
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ed3fe99398e011743a8762dc1e8e0975, type: 3}
       propertyPath: m_LocalPosition.z
